@@ -23,6 +23,13 @@ def isNumber(token):
 def isOperand(token):
     return token in operadores
 
+
+'''
+@ nombre_archivo es el nombre del archivo a leer.
+Entrada:
+- Un archivo tipo texto que contenga una o más expresiones aritméticas, una por renglón.
+- Los tokens no necesariamente deben estar separados por un blanco, o pueden tener separación de más de un blanco
+'''
 def lexerAritmetico(nombre_archivo):
     f = open(nombre_archivo)
     
