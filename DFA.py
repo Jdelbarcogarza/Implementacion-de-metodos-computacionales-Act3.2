@@ -36,6 +36,6 @@ def lexerAritmetico(nombre_archivo):
     for line in f.readlines():
         print(line)
         
-lexerAritmetico("commands.txt")
+lexerAritmetico("expresiones.txt")
             
 
