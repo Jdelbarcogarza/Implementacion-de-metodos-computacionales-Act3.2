@@ -67,6 +67,8 @@ def processLine(line, inputFile, outputFile):
                 state = 'real'
             elif token in '_':
                 error_sintaxis(inputFile, outputFile)
+            elif token != ' ' and token != '\n':
+                error_sintaxis(inputFile, outputFile)
 
             if token != ' ' and token != '\n':
                 unfinishedToken.append(token)
@@ -89,6 +91,8 @@ def processLine(line, inputFile, outputFile):
             elif token == ' ':
                 clearTokensList(unfinishedToken, outputFile)
                 state = 'inicial'
+            elif token != ' ' and token != '\n':
+                error_sintaxis(inputFile, outputFile)
 
             if token != ' ' and token != '\n':
                 unfinishedToken.append(token)
@@ -117,6 +121,8 @@ def processLine(line, inputFile, outputFile):
                 state = 'inicial'
             elif token == '_':
                 error_sintaxis(inputFile, outputFile)
+            elif token != ' ' and token != '\n':
+                error_sintaxis(inputFile, outputFile)
 
             if token != ' ' and token != '\n':
                 unfinishedToken.append(token)
@@ -136,6 +142,8 @@ def processLine(line, inputFile, outputFile):
             elif isOperand(token):
                 state = 'operador'
             elif token in '._':
+                error_sintaxis(inputFile, outputFile)
+            elif token != ' ' and token != '\n':
                 error_sintaxis(inputFile, outputFile)
 
             if token != ' ' and token != '\n':
@@ -157,6 +165,8 @@ def processLine(line, inputFile, outputFile):
                 elif isOperand(token):
                     state = 'operador'
                 elif token in '._':
+                    error_sintaxis(inputFile, outputFile)
+                elif token != ' ' and token != '\n':
                     error_sintaxis(inputFile, outputFile)
 
             if token != ' ' and token != '\n':
@@ -202,6 +212,8 @@ def processLine(line, inputFile, outputFile):
                 state = 'inicial'
             elif token in '._':
                 error_sintaxis(inputFile, outputFile)
+            elif token != ' ' and token != '\n':
+                error_sintaxis(inputFile, outputFile)
 
             if token != ' ' and token != '\n':
                 unfinishedToken.append(token)
@@ -224,6 +236,8 @@ def processLine(line, inputFile, outputFile):
                 clearTokensList(unfinishedToken, outputFile)
                 state = 'inicial'
             elif token in '._':
+                error_sintaxis(inputFile, outputFile)
+            elif token != ' ' and token != '\n':
                 error_sintaxis(inputFile, outputFile)
             
 
