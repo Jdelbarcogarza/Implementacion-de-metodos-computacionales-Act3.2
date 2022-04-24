@@ -7,10 +7,16 @@ d = a ^ b // Esto es un comentario
 -0.001E-3
 .467E9
 
-8 //Comentarios 8
+8 //Comentario
+
+variables
+
+3.4E-2-15
+3.-E15
+3.4-sE-15
+8.9 - 4
 
 -8
-*
 ba_1 .7
 a_1
 /-/
