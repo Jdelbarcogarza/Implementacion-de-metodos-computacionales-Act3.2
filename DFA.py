@@ -141,7 +141,9 @@ def processLine(line, inputFile, outputFile):
                 state = 'division'
             elif isOperand(token):
                 state = 'operador'
-            elif token in '._':
+            elif token == '.':
+                state = 'real'
+            elif token in '_':
                 error_sintaxis(inputFile, outputFile)
             elif token != ' ' and token != '\n':
                 error_sintaxis(inputFile, outputFile)
@@ -164,7 +166,9 @@ def processLine(line, inputFile, outputFile):
                     state = 'resta'
                 elif isOperand(token):
                     state = 'operador'
-                elif token in '._':
+                elif token == '.':
+                    state = 'real'
+                elif token in '_':
                     error_sintaxis(inputFile, outputFile)
                 elif token != ' ' and token != '\n':
                     error_sintaxis(inputFile, outputFile)
@@ -176,18 +180,7 @@ def processLine(line, inputFile, outputFile):
         elif state == 'comentario':
             if token == '\n':
                 clearTokensList(unfinishedToken, outputFile)
-                if token.isalpha():
-                    state = 'variable'
-                elif token.isnumeric():
-                    state = 'entero'
-                elif token == '-':
-                    state = 'resta'
-                elif token == '/':
-                    state = 'division'
-                elif isOperand(token):
-                    state = 'operador'
-                elif token in '._':
-                    error_sintaxis(inputFile, outputFile)
+                token = 'inicial'
             else:
                 unfinishedToken.append(token)
 
@@ -210,7 +203,10 @@ def processLine(line, inputFile, outputFile):
             elif token == ' ':
                 clearTokensList(unfinishedToken, outputFile)
                 state = 'inicial'
-            elif token in '._':
+            elif token == '.':
+                clearTokensList(unfinishedToken, outputFile)
+                state = 'real'
+            elif token in '_':
                 error_sintaxis(inputFile, outputFile)
             elif token != ' ' and token != '\n':
                 error_sintaxis(inputFile, outputFile)
@@ -218,20 +214,30 @@ def processLine(line, inputFile, outputFile):
             if token != ' ' and token != '\n':
                 unfinishedToken.append(token)
 
-
+            
         elif state == 'real':
-            if isInteger(token) or token == 'E' or token == 'e' or token == '-':
+            if isInteger(token):
                 unfinishedToken.append(token)
                 state = 'real'
+            elif token == 'E' or token == 'e':
+                unfinishedToken.append(token)
+                state = 'real_aux'
+            elif token == '-':
+                clearTokensList(unfinishedToken, outputFile)
+                unfinishedToken.append(token)
+                state = 'resta'
             elif token.isalpha():
                 clearTokensList(unfinishedToken, outputFile)
+                unfinishedToken.append(token)
                 state = 'variable'
             elif token == '/':
                 clearTokensList(unfinishedToken, outputFile)
+                unfinishedToken.append(token)
                 state = 'division'
             elif isOperand(token):
                 clearTokensList(unfinishedToken, outputFile)
-                state = 'token'
+                unfinishedToken.append(token)
+                state = 'operador'
             elif token == ' ':
                 clearTokensList(unfinishedToken, outputFile)
                 state = 'inicial'
@@ -240,6 +246,62 @@ def processLine(line, inputFile, outputFile):
             elif token != ' ' and token != '\n':
                 error_sintaxis(inputFile, outputFile)
             
+        
+        # Si se recibe una E o e, se asegura que el siguiente caracter sea un numero o un -
+        elif state == 'real_aux':
+            if isInteger(token):
+                unfinishedToken.append(token)
+                state = 'real_aux2'
+            elif token == '-':
+                unfinishedToken.append(token)
+                state = 'real_aux3'
+            else:
+                error_sintaxis(inputFile, outputFile)
+
+
+        # Es valido para salir de numero real
+        elif state == 'real_aux2':
+            if isInteger(token):
+                unfinishedToken.append(token)
+                state = 'real_aux2'
+            elif token == '-':
+                clearTokensList(unfinishedToken, outputFile)
+                unfinishedToken.append(token)
+                state = 'resta'
+            elif token.isalpha():
+                clearTokensList(unfinishedToken, outputFile)
+                unfinishedToken.append(token)
+                state = 'variable'
+            elif token == '/':
+                clearTokensList(unfinishedToken, outputFile)
+                unfinishedToken.append(token)
+                state = 'division'
+            elif isOperand(token):
+                clearTokensList(unfinishedToken, outputFile)
+                unfinishedToken.append(token)
+                state = 'operador'
+            elif token == '.':
+                clearTokensList(unfinishedToken, outputFile)
+                unfinishedToken.append(token)
+                state = 'real'
+            elif token == ' ':
+                clearTokensList(unfinishedToken, outputFile)
+                state = 'inicial'
+            elif token in '_':
+                error_sintaxis(inputFile, outputFile)
+            elif token != ' ' and token != '\n':
+                error_sintaxis(inputFile, outputFile)
+            
+
+        # Se asegura que despues de recibir un -, se reciba un numero
+        elif state == 'real_aux3':
+            if isInteger(token):
+                unfinishedToken.append(token)
+                state = 'real_aux2'
+            else:
+                error_sintaxis(inputFile, outputFile)
+
+
 
     # Se termina el loop. Limpiar lo que haya quedado en la lista
     clearTokensList(unfinishedToken, outputFile)
