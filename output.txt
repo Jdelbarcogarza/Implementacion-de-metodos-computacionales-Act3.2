@@ -1,0 +1,56 @@
+Token                                   Tipo
+b                                       Variable
+=                                       Asignación
+7                                       Entero
+a                                       Variable
+=                                       Asignación
+32.4                                    Real
+*                                       Multiplicación
+(                                       Paréntesis que abre
+-8.6                                    Real
+-                                       Resta
+b                                       Variable
+)                                       Paréntesis que cierra
+/                                       División
+6.1E-8                                  Real
+d                                       Variable
+=                                       Asignación
+a                                       Variable
+^                                       Potencia
+b                                       Variable
+// Esto es un comentario                Comentario
+2.3E3                                   Real
+6.345e-5                                Real
+-0.001E-3                               Real
+.467E9                                  Real
+8                                       Entero
+//Comentarios 8                         Comentario
+-8                                      Entero
+*                                       Multiplicación
+ba_1                                    Variable
+.7                                      Real
+a_1                                     Variable
+/                                       División
+-                                       Resta
+/                                       División
+b1                                      Variable
+x_1                                     Variable
+=                                       Asignación
+7                                       Entero
+-8                                      Entero
+-4                                      Entero
+-                                       Resta
+b                                       Variable
+2.3E3                                   Real
+b                                       Variable
+3.                                      Real
+3.0                                     Real
+E                                       Variable
+-                                       Resta
+8                                       Entero
+2.4                                     Real
+-2.3E-3                                 Real
+-32.4                                   Real
+-                                       Resta
+-1                                      Entero
+ERROR DE SINTAXIS. TERMINANDO PROGRAMA
