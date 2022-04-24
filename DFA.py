@@ -42,6 +42,9 @@ def lexerAritmetico(nombre_archivo):
     inputFile.close()
 
 
+"""Procesa una línea para identificar los tokens que se encuentran en esa línea.
+El código se basa en Autómata Finito Determinista. 
+"""
 def processLine(line, inputFile, outputFile):
 
     unfinishedToken = []
@@ -140,7 +143,6 @@ def processLine(line, inputFile, outputFile):
 
 
         elif state == 'division':
-            
             if token == '/':
                 state = 'comentario'
             else:
@@ -162,7 +164,6 @@ def processLine(line, inputFile, outputFile):
 
 
         elif state == 'comentario':
-
             if token == '\n':
                 clearTokensList(unfinishedToken, outputFile)
                 if token.isalpha():
@@ -182,7 +183,6 @@ def processLine(line, inputFile, outputFile):
 
 
         elif state == 'resta':
-
             if token.isalpha():
                 clearTokensList(unfinishedToken, outputFile)
                 state = 'variable'
@@ -208,7 +208,6 @@ def processLine(line, inputFile, outputFile):
 
 
         elif state == 'real':
-
             if isInteger(token) or token == 'E' or token == 'e' or token == '-':
                 unfinishedToken.append(token)
                 state = 'real'
@@ -228,6 +227,7 @@ def processLine(line, inputFile, outputFile):
                 error_sintaxis(inputFile, outputFile)
             
 
+    # Se termina el loop. Limpiar lo que haya quedado en la lista
     clearTokensList(unfinishedToken, outputFile)
 
 
@@ -249,7 +249,8 @@ def clearTokensList(tokenList, outputFile):
 
 
 
-"""Recibe un token como entrada. Regresa una lista con el
+"""Recibe un token como entrada. Los caracteres del token
+están separados en una lista. Regresa una lista con el
 token en la primera posicion y su tipo en la segunda posicion
 """
 def getToken(tokenList):
